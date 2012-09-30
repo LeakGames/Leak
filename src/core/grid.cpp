@@ -22,7 +22,7 @@ int Grid::operator()(int x, int y) {
 }
 
 bool Grid::is_cell_free( const int x, const int y ) {
-    return !( ( bool ) this->matrix[x][y] );
+    return ( bool ) ( this->matrix[x][y] == 0 );
 }
 
 void Grid::spawn_bonuses() {
