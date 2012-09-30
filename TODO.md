@@ -2,10 +2,6 @@
 
 Mind Revolution
 
-# Leak Project
-
-Mind Revolution
-
 * Grid
 * Graphics
 * Lua engine
