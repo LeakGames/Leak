@@ -2,10 +2,11 @@
 
 Mind Revolution
 
-## Grid Class
-* Stoke
-* Jiin
+# Leak Project
 
-## Graphic Grid
-* DoMinO
-* Nex
+Mind Revolution
+
+* Grid
+* Graphics
+* Lua engine
+* __EVERYTHING__
