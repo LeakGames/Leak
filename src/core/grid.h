@@ -10,19 +10,6 @@ protected:
 public:
     vector<vector<int> > matrix;
 
-    Grid( const int n, const int m ) {
-      vector<vector<int> > matrix( n, vector<int>( m ) );
-
-      this->n = n;
-      this->m = m;
-      this->matrix = matrix;
-    }
-
-    int operator()(int x, int y) {
-        return this->matrix[x][y];
-    }
-    
-    ~Grid();
-    bool is_cell_free(unsigned int x, unsigned int y);
-    void spawn_bonuses();
+    Grid( const int n, const int m );
+    int operator()( const int x, const int y);
 };
