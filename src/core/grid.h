@@ -1,12 +1,15 @@
 #include <vector>
 
-class Grid {
-public:
-  Grid();
-  ~Grid();
-  bool is_cell_free(unsigned int x, unsigned int y);
-  void spawn_bonuses();
+using namespace std;
 
+class Grid
+{
 protected:
-  Vector<short int> *vector;
-}
+    int n, m;
+
+public:
+    vector<vector<int> > matrix;
+
+    Grid( const int n, const int m );
+    int operator()( const int x, const int y);
+};
