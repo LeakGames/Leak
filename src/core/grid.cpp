@@ -1,5 +1,5 @@
-﻿#include <vector>
-#include "main.h"
+#include <vector>
+#include "grid.h"
 
 using namespace std;
 
