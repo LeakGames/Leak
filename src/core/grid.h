@@ -12,4 +12,5 @@ public:
 
     Grid( const int n, const int m );
     int operator()( const int x, const int y);
+    bool is_cell_free( const int x, const int y );
 };
