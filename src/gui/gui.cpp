@@ -1,15 +1,13 @@
 #include "gui.h"
 
-Gui::Gui(const int w = 100, const int h = 100)
-{
-	vector< vector<sf::RectangleShape> > matrix( w, vector<sf::RectangleShape>( h ));
+Gui::Gui(const int w = 100, const int h = 100) {
+	std::vector<std::vector<sf::RectangleShape> > matrix( w, std::vector<sf::RectangleShape>( h ));
 
 	this->window.create(sf::VideoMode(w, h), "Leak");
 	this->matrix = matrix;
 }
 
-int main()
-{
+int main() {
 /*	sf::RenderWindow window;
 
 	window.create(sf::VideoMode(200,200), "SFML");

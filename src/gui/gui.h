@@ -10,5 +10,5 @@ class Gui {
 		sf::RenderWindow window;
 		sf::Font font;
 		sf::Text text;
-		vector< vector<sf::RectangleShape> > matrix;
+		std::vector<std::vector<sf::RectangleShape> > matrix;
 };
