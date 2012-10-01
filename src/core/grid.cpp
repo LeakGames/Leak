@@ -4,7 +4,7 @@
 #include <ctime>
 #include <cmath>
 
-#include "grid.h"
+#include "main.h"
 
 using namespace std;
 
@@ -20,10 +20,11 @@ Cell Grid::operator()(int x, int y) {
     return this->matrix[x][y];
 }
 
-void Grid::set(int x, int y, Player *p) {
+bool Grid::set(int x, int y, Player *p) {
     // call GUI methods
 
     this->matrix[x][y].player = p;
+    return true;
 }
 
 bool Grid::is_cell_free( const int x, const int y ) {
