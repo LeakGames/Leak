@@ -1,9 +1,9 @@
-#include <SFML/Graphics.h>
+#include <SFML/Graphics.hpp>
 #include "player.h"
 #include <vector>
 
 typedef struct Cell {
-    vector<sf::RectangleShape> *rect;
+    sf::RectangleShape *rect;
     Player *player;
     int x;
     int y;

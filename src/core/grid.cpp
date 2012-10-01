@@ -1,51 +1,34 @@
 #include <vector>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 
-#include "player.h"
-#include "main.h"
+#include "grid.h"
 
 using namespace std;
 
 Grid::Grid( const int w, const int h ) {
-  this->w = w;
-  this->h = h;
-  this->matrix = new vector< vector<Cell> >(n, vector<Cell>(m));
+    vector< vector<Cell> > matrix(w, vector<Cell>(h));
 
-  for( int i = 1; i <= 6; i++ )
-      this->gift.push_back( i * -1 );
+    this->w = w;
+    this->h = h;
+    this->matrix = matrix;
 }
 
-int Grid::operator()(int x, int y) {
+Cell Grid::operator()(int x, int y) {
     return this->matrix[x][y];
 }
 
 void Grid::set(int x, int y, Player *p) {
     // call GUI methods
 
-    this->matrix[x][y]->p = player;
+    this->matrix[x][y].player = p;
 }
 
 bool Grid::is_cell_free( const int x, const int y ) {
-    return ( bool ) ( !this->matrix[x][y]->p );
+    return ( bool ) ( !this->matrix[x][y].player );
 }
-
-/*
-void Grid::spawn_bonuses() {
-    int rand_n, rand_m, rand_gift;
-
-    do {
-        rand_n = rand() % this->n;
-        rand_m = rand() % this->m;
-        rand_gift = rand() % 6;
-
-        if( this->is_cell_free( rand_n, rand_m ) ) {
-            this->matrix[ rand_n ][ rand_m ] = this->gift.at( rand_gift );
-        }
-
-    } while( this->is_cell_free( rand_n, rand_m ) );
-}
-*/
 
 void Grid::spawn_player( const int cell_free ) {
     int i, j, rand_seed_n, rand_seed_m;
@@ -53,14 +36,14 @@ void Grid::spawn_player( const int cell_free ) {
     
     do {
         flag = false;
-        rand_seed_n = rand() % this->n;
-        rand_seed_m = rand() % this->n;
+        rand_seed_n = rand() % this->w;
+        rand_seed_m = rand() % this->w;
 
-        if( ( rand_seed_n > ( this->n - cell_free )) || ( rand_seed_n > ( this->m - cell_free ) ) ) {
+        if( ( rand_seed_n > ( this->w - cell_free )) || ( rand_seed_n > ( this->h - cell_free ) ) ) {
             rand_seed_n -= cell_free;
         }
 
-        if( ( rand_seed_m > ( this->n - cell_free )) || ( rand_seed_m > ( this->m - cell_free ) ) ) {
+        if( ( rand_seed_m > ( this->w - cell_free )) || ( rand_seed_m > ( this->h - cell_free ) ) ) {
             rand_seed_m -= cell_free;
         }
 
@@ -76,7 +59,7 @@ void Grid::spawn_player( const int cell_free ) {
 
         if( !flag ) {
             int mid = ceil( (float)cell_free / (float)2 );
-            this->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = NULL; // TODO: Spawn Player
+            //this->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = (Cell) NULL; // TODO: Spawn Player
         }
 
     } while( flag );
@@ -85,10 +68,12 @@ void Grid::spawn_player( const int cell_free ) {
 void Grid::print_matrix() {
     int i, j;
 
-    for( i = 0; i < this->n; i++ ) {
-        for( j = 0; j < this->m; j++ ) {
-            cout << this->matrix[ i ][ j ]->P << " ";
+    for( i = 0; i < this->w; i++ ) {
+        for( j = 0; j < this->h; j++ ) {
+            cout << this->matrix[ i ][ j ].player << " ";
         }
         cout << endl;
     }
 }
+
+int main() {}

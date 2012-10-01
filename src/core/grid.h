@@ -1,4 +1,5 @@
 #include <vector>
+#include "player.h"
 
 using namespace std;
 
@@ -9,10 +10,10 @@ public:
     vector<vector<Cell> > matrix;
 
     Grid( const int n, const int m );
-    int operator()( const int x, const int y);
+    Cell operator()( const int x, const int y);
     bool is_cell_free( const int x, const int y );
     void spawn_bonuses();
-    void set(int x, int y, int n);    
+    void set(int x, int y, Player *p);    
     void spawn_player( const int cell_free );
     void print_matrix();
 };
