@@ -15,6 +15,7 @@ class Gui {
 		sf::RenderWindow get_window();
 		void set_color(int, int, sf::Color);
 
+	protected:
 		sf::RenderWindow window;
 		sf::Font font;
 		sf::Text text;
