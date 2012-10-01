@@ -64,22 +64,22 @@ void Grid::spawn_player( const int cell_free ) {
             rand_seed_m -= cell_free;
         }
 
-        if( this->is_cell_free( rand_seed_n, rand_seed_m ) == true ) {
-            for( i = rand_seed_n; i < cell_free && flag == 0; i++ ) {
-                for( j = rand_seed_m; j < cell_free && flag == 0; j++ ) {
-                    if( this->is_cell_free( i, j ) == false ) {
+        if( this->is_cell_free( rand_seed_n, rand_seed_m ) ) {
+            for( i = rand_seed_n; i < cell_free && !flag; i++ ) {
+                for( j = rand_seed_m; j < cell_free && !flag; j++ ) {
+                    if( !this->is_cell_free( i, j ) ) {
                         flag = 1;
                     }
                 }
             }
         }
 
-        if( flag == 0 ) {
+        if( !flag ) {
             int mid = ceil( (float)cell_free / (float)2 );
             this->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = 1; // Spawn Player
         }
 
-    } while( flag == 1 );
+    } while( flag );
 }
 
 void Grid::print_matrix() {
@@ -92,5 +92,3 @@ void Grid::print_matrix() {
         cout << endl;
     }
 }
-
-int main() {}
