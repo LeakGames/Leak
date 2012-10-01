@@ -25,6 +25,10 @@ void Gui::create_matrix() {
 	}
 }
 
+void Gui::set_color(int x, int y, sf::Color color) {
+	return this->matrix[x][y].rect->setFillColor(color);
+}
+
 void Gui::display_window() { 
 	int x, y;
 
@@ -35,13 +39,17 @@ void Gui::display_window() {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			 if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F3))
+				 this->set_color(3,3, sf::Color::Blue);
 		}
 
-        for (x = 0; x < this->width_matrix; x++) {
+     	for (x = 0; x < this->width_matrix; x++) {
 			for (y = 0; y < this->height_matrix; y++) {
 				this->window.draw(*this->matrix[x][y].rect);
 			}
 		}
+		
 		this->window.display();
 	}
 }

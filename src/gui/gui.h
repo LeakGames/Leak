@@ -1,6 +1,6 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "../core/player.h"
+#include "../core/main.h"
 
 using namespace std;
 
@@ -12,8 +12,9 @@ class Gui {
 		~Gui();
 		void create_matrix();
 		void display_window();
+		sf::RenderWindow get_window();
+		void set_color(int, int, sf::Color);
 
-	protected:
 		sf::RenderWindow window;
 		sf::Font font;
 		sf::Text text;
