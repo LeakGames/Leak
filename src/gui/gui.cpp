@@ -13,10 +13,10 @@ void Gui::create_matrix(int w, int h) {
 	
 	for (x = 0; x < this->w/w; x++) {
 		for (y = 0; y < this->h/h; y++) {
-			this->matrix[x][y].setSize(sf::Vector2f(50, 50));
+			this->matrix[x][y].setSize(sf::Vector2f(w, h));
 			this->matrix[x][y].setOutlineColor(sf::Color::Red);
 			this->matrix[x][y].setOutlineThickness(2);
-			this->matrix[x][y].setPosition(x*50, y*50);
+			this->matrix[x][y].setPosition(x*w, y*h);
 		}
 	}
 }
@@ -76,8 +76,8 @@ int main() {
      	window.display();
 	}*/
 	int w, h;
-	w = 50;
-	h = 50;
+	w = 10;
+	h = 10;
 	Gui *g = new Gui();
 	g->create_matrix(w, h);
 	g->display_window(w, h);
