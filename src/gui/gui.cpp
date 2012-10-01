@@ -1,4 +1,7 @@
 #include "gui.h"
+#include <iostream>
+
+using namespace std;
 
 Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 100, const int height_matrix = 100) {
 	vector<vector<Cell> > matrix(width_matrix, vector<Cell>( height_matrix ));
@@ -40,8 +43,15 @@ void Gui::display_window() {
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			 if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F3))
-				 this->set_color(3,3, sf::Color::Blue);
+			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F3))
+				this->set_color(3,3, sf::Color::Blue);
+
+			if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F2)) {
+				sf::Image screen = window.capture();
+				screen.saveToFile("screenshot.png");
+				cout << "Screenshot saved!" << endl;
+			 }
+
 		}
 
      	for (x = 0; x < this->width_matrix; x++) {
