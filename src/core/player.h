@@ -3,7 +3,7 @@
 
 class Player {
 public:
-    sf::RectangleShape rect;
+    vector <sf::RectangleShape> rect;
     int starting_x, starting_y, kills, deaths;
     vector<int> *bonuses;
     float exp;
