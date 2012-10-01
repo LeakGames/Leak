@@ -15,4 +15,5 @@ public:
     int operator()( const int x, const int y);
     bool is_cell_free( const int x, const int y );
     void spawn_bonuses();
+    void set(int x, int y, int n);
 };
