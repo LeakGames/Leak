@@ -1,5 +1,6 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "../core/player.h"
 
 using namespace std;
 
@@ -16,6 +17,6 @@ class Gui {
 		sf::RenderWindow window;
 		sf::Font font;
 		sf::Text text;
-		vector< vector<sf::RectangleShape> > matrix;
+		vector< vector<Cell> > matrix;
 		sf::RectangleShape rectangle;
 };
