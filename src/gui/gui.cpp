@@ -1,12 +1,12 @@
 #include "gui.h"
-#include <iostream>
 
-Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 200, const int height_matrix = 200) {
-	vector<vector<sf::RectangleShape> > matrix(width_matrix, vector<sf::RectangleShape>( height_matrix ));
+Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 100, const int height_matrix = 100) {
+	vector<vector<Cell> > matrix(width_matrix, vector<Cell>( height_matrix ));
 	this->width_window = width_window;
 	this->height_window = height_window;
 	this->width_matrix = width_matrix;
 	this->height_matrix = height_matrix;
+	//this->matrix = new vector<vector<Cell> >(width_matrix, vector<Cell>( height_matrix ));
 	this->matrix = matrix;
 }
 
@@ -15,14 +15,12 @@ void Gui::create_matrix() {
 	float w = (float)this->width_window/(float)this->width_matrix;
 	float h = (float)this->height_window/(float)this->height_matrix;
 
-	std::cout << "W:" << w << "\nH:" << h << "\n";
-	
 	for (x = 0; x < this->width_matrix; x++) {
 		for (y = 0; y < this->height_matrix; y++) {
-			this->matrix[x][y].setSize(sf::Vector2f(w, h));
-			this->matrix[x][y].setOutlineColor(sf::Color::Red);
-			this->matrix[x][y].setOutlineThickness(1);
-			this->matrix[x][y].setPosition(x*w, y*h);
+			this->matrix[x][y].rect = new sf::RectangleShape(sf::Vector2f(w,h));
+			this->matrix[x][y].rect->setOutlineColor(sf::Color::Red);
+			this->matrix[x][y].rect->setOutlineThickness(1);
+			this->matrix[x][y].rect->setPosition(x*w, y*h);
 		}
 	}
 }
@@ -41,7 +39,7 @@ void Gui::display_window() {
 
         for (x = 0; x < this->width_matrix; x++) {
 			for (y = 0; y < this->height_matrix; y++) {
-				this->window.draw(this->matrix[x][y]);
+				this->window.draw(*this->matrix[x][y].rect);
 			}
 		}
 		this->window.display();
