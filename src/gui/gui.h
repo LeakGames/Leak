@@ -1,14 +1,16 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+using namespace std;
+
 class Gui {	
 	public:
-		Gui(const int,const int);
+		Gui(const int, const int);
 		~Gui();
 
 	protected:
 		sf::RenderWindow window;
 		sf::Font font;
 		sf::Text text;
-		std::vector<std::vector<sf::RectangleShape> > matrix;
+		vector< vector<sf::RectangleShape> > matrix;
 };
