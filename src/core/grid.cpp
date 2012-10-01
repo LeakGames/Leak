@@ -48,4 +48,49 @@ void Grid::spawn_bonuses() {
     } while( this->is_cell_free( rand_n, rand_m ) );
 }
 
+void Grid::spawn_player( int cell_free ) {
+    int i, j, flag, rand_seed_n, rand_seed_m;
+
+    do {
+        flag = 0;
+        rand_seed_n = rand() % this->n;
+        rand_seed_m = rand() % this->n;
+
+        if( ( rand_seed_n > ( this->n - cell_free )) || ( rand_seed_n > ( this->m - cell_free ) ) ) {
+            rand_seed_n -= cell_free;
+        }
+
+        if( ( rand_seed_m > ( this->n - cell_free )) || ( rand_seed_m > ( this->m - cell_free ) ) ) {
+            rand_seed_m -= cell_free;
+        }
+
+        if( this->is_cell_free( rand_seed_n, rand_seed_m ) == true ) {
+            for( i = rand_seed_n; i < cell_free && flag == 0; i++ ) {
+                for( j = rand_seed_m; j < cell_free && flag == 0; j++ ) {
+                    if( this->is_cell_free( i, j ) == false ) {
+                        flag = 1;
+                    }
+                }
+            }
+        }
+
+        if( flag == 0 ) {
+            int mid = ceil( (float)cell_free / (float)2 );
+            this->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = 1; // Spawn Player
+        }
+
+    } while( flag == 1 );
+}
+
+void Grid::print_matrix() {
+    int i, j;
+
+    for( i = 0; i < this->n; i++ ) {
+        for( j = 0; j < this->m; j++ ) {
+            cout << this->matrix[ i ][ j ] << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main() {}
