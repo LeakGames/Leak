@@ -1,6 +1,7 @@
 #include <SFML/Graphics.h>
 
-class Player {
+class Player 
+{
 public:
     sf::Color color;
     int starting_x, starting_y, kills, deaths;
@@ -9,6 +10,6 @@ public:
 
     Player();
     ~Player();
-    int move(int x, int y);
-    int scan(int x, int y);
+    int move( int x, int y );
+    int scan( int x, int y );
 };
