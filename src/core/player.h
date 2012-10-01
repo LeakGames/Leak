@@ -1,11 +1,12 @@
 #include <SFML/Graphics.h>
+#include "cell.h"
 #include <vector>
 
 class Player {
 public:
-    vector<sf::RectangleShape> *rect;
-    int starting_x, starting_y, kills, deaths;
+    vector<Cell> *cells;
     vector<int> *bonuses;
+    int starting_x, starting_y, kills, deaths;
     float exp;
 
     Player();

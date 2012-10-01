@@ -4,12 +4,9 @@ using namespace std;
 
 class Grid
 {
-protected:
-    int n, m;
-    vector<int> gift;
-
 public:
-    vector<vector<int> > matrix;
+    int w, h;
+    vector<vector<Cell> > matrix;
 
     Grid( const int n, const int m );
     int operator()( const int x, const int y);

@@ -2,16 +2,15 @@
 #include <cstdlib>
 #include <ctime>
 
+#include "player.h"
 #include "main.h"
 
 using namespace std;
 
-Grid::Grid( const int n, const int m ) {
-  vector<vector<int> > matrix( n, vector<int>( m ) );
-
-  this->n = n;
-  this->m = m;
-  this->matrix = matrix;
+Grid::Grid( const int w, const int h ) {
+  this->w = w;
+  this->h = h;
+  this->matrix = new vector< vector<Cell> >(n, vector<Cell>(m));
 
   for( int i = 1; i <= 6; i++ )
       this->gift.push_back( i * -1 );
@@ -21,16 +20,17 @@ int Grid::operator()(int x, int y) {
     return this->matrix[x][y];
 }
 
-void Grid::set(int x, int y, int n) {
+void Grid::set(int x, int y, Player *p) {
     // call GUI methods
 
-    this->matrix[x][y] = n;
+    this->matrix[x][y]->p = player;
 }
 
 bool Grid::is_cell_free( const int x, const int y ) {
-    return ( bool ) ( !this->matrix[x][y] );
+    return ( bool ) ( !this->matrix[x][y]->p );
 }
 
+/*
 void Grid::spawn_bonuses() {
     int rand_n, rand_m, rand_gift;
 
@@ -45,6 +45,7 @@ void Grid::spawn_bonuses() {
 
     } while( this->is_cell_free( rand_n, rand_m ) );
 }
+*/
 
 void Grid::spawn_player( const int cell_free ) {
     int i, j, rand_seed_n, rand_seed_m;
@@ -75,7 +76,7 @@ void Grid::spawn_player( const int cell_free ) {
 
         if( !flag ) {
             int mid = ceil( (float)cell_free / (float)2 );
-            this->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = 1; // Spawn Player
+            this->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = NULL; // TODO: Spawn Player
         }
 
     } while( flag );
@@ -86,7 +87,7 @@ void Grid::print_matrix() {
 
     for( i = 0; i < this->n; i++ ) {
         for( j = 0; j < this->m; j++ ) {
-            cout << this->matrix[ i ][ j ] << " ";
+            cout << this->matrix[ i ][ j ]->P << " ";
         }
         cout << endl;
     }
