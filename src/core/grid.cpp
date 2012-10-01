@@ -32,8 +32,6 @@ bool Grid::is_cell_free( const int x, const int y ) {
 }
 
 void Grid::spawn_bonuses() {
-    srand(time(0));
-
     int rand_n, rand_m, rand_gift;
 
     do {
