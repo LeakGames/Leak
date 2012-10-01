@@ -29,7 +29,7 @@ void Gui::create_matrix() {
 }
 
 void Gui::set_color(int x, int y, sf::Color color) {
-	return this->matrix[x][y].rect->setFillColor(color);
+	this->matrix[x][y].rect->setFillColor(color);
 }
 
 void Gui::display_window() { 
