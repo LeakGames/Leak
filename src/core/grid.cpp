@@ -48,7 +48,7 @@ void Grid::spawn_bonuses() {
     } while( this->is_cell_free( rand_n, rand_m ) );
 }
 
-void Grid::spawn_player( int cell_free ) {
+void Grid::spawn_player( const int cell_free ) {
     int i, j, flag, rand_seed_n, rand_seed_m;
 
     do {
