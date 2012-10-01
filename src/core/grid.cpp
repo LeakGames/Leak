@@ -21,8 +21,14 @@ int Grid::operator()(int x, int y) {
     return this->matrix[x][y];
 }
 
+void Grid::set(int x, int y, int n) {
+    // call GUI methods
+
+    this->matrix[x][y] = n;
+}
+
 bool Grid::is_cell_free( const int x, const int y ) {
-    return ( bool ) ( this->matrix[x][y] == 0 );
+    return ( bool ) ( !this->matrix[x][y] );
 }
 
 void Grid::spawn_bonuses() {
