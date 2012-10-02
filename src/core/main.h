@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <boost/thread.hpp>
 
 #include "../gui/gui.h"
 
