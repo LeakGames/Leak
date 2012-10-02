@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include "main.h"
+#include "../gui/gui.h"
 
 using namespace std;
 

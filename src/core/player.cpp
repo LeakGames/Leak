@@ -1,6 +1,7 @@
 #include <cmath>
-#include "main.h"
 
+#include "main.h"
+#include "../gui/gui.h"
 
 Player::Player(Grid *grid, sf::Color color) {
   this->color = color;

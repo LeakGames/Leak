@@ -1,15 +1,10 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#ifndef CELL_H
-#include "cell.h"
-#endif
-
-#ifndef GUI_H
 #include "../gui/gui.h"
-#ifndef
-
-#define MAIN_H
 
 class Grid;
 class Player;
@@ -44,3 +39,4 @@ public:
     bool move(const int sx, const int sy, const int x, const int y);
     int scan(const int x, const int y);
 };
+#endif
