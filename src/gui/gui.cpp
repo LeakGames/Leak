@@ -1,4 +1,7 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include <boost/thread.hpp>
+
 #include "../core/main.h"
 #include "gui.h"
 
