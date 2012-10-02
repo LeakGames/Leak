@@ -14,6 +14,7 @@ Grid::Grid( const int w, const int h ) {
     this->w = w;
     this->h = h;
     this->matrix = matrix;
+    this->gui = new Gui();
 }
 
 Cell Grid::operator()(int x, int y) {

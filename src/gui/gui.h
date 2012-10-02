@@ -1,6 +1,9 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "../core/main.h"
+
+#include "../core/cell.h"
+
+#define GUI_H
 
 using namespace std;
 

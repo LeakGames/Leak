@@ -1,9 +1,12 @@
-#include "gui.h"
 #include <iostream>
+#include <thread>
+#include <boost/thread.hpp>
+
+#include "gui.h"
 
 using namespace std;
 
-Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 100, const int height_matrix = 100) {
+Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 4, const int height_matrix = 4) {
 	vector<vector<Cell> > matrix(width_matrix, vector<Cell>( height_matrix ));
 	this->width_window = width_window;
 	this->height_window = height_window;
@@ -64,45 +67,16 @@ void Gui::display_window() {
 	}
 }
 
+
 int main() {
-/*	sf::RenderWindow window;
-
-	window.create(sf::VideoMode(200,200), "SFML");
-	sf::Font font;
-	sf::Text text("Grid");
-	sf::RectangleShape rectangle;
-
-	rectangle.setSize(sf::Vector2f(10, 10));
-	rectangle.setFillColor(sf::Color::Blue);
-	rectangle.setOutlineColor(sf::Color::Red);
-	rectangle.setOutlineThickness(2);
-	rectangle.setPosition(30, 10);
-	
-	font.loadFromFile("/usr/share/fonts/TTF/arial.ttf");
- 	
-	text.setFont(font);
-	text.setCharacterSize(10);
-	text.setStyle(sf::Text::Bold);
-	text.setColor(sf::Color::Red);
-
-	while (window.isOpen())
-	{
-     	sf::Event event;
-     	while (window.pollEvent(event))
-     	{
-          	if (event.type == sf::Event::Closed)
-               	window.close();
-     	}
-
-		window.clear();
-		window.draw(rectangle);
-		window.draw(text);
-     	window.display();
-	}*/
 	int w, h;
 	Gui *g = new Gui();
+	boost::thread t1(g->display_window)
+	cout << "FIRST" << endl;
 	g->create_matrix();
-	g->display_window();
-
+	cout << "SECOND" << endl;
+	g->set_color(1, 1, sf::Color::Green);
+	cout << "THIRD" << endl;
+	t1.join();
 	return 0;
 }

@@ -1,24 +1,26 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+#ifndef CELL_H
+#include "cell.h"
+#endif
+
+#ifndef GUI_H
+#include "../gui/gui.h"
+#ifndef
+
+#define MAIN_H
+
 class Grid;
 class Player;
 
 using namespace std;
 
-typedef struct Cell {
-    sf::RectangleShape *rect;
-    Player *player;
-    int x;
-    int y;
-    int atk_bonus;
-    int def_bonus;
-} Cell;
-
 class Grid {
 public:
     int w, h;
     vector<vector<Cell> > matrix;
+    Gui *gui;
 
     Grid( const int n, const int m );
     Cell operator()( const int x, const int y);
