@@ -7,9 +7,6 @@
 *.so
 
 # Compiled Static libraries
-*.lai
-*.la
-*.a
 
 # IDEs
 
