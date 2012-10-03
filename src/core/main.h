@@ -39,12 +39,16 @@ public:
     sf::Color color;
     float exp;
     Grid *grid;
-    lua_State *L;
+    lua_State *l;
 
-    Player(Grid *grid, sf::Color color);
+    Player(Grid *grid, sf::Color color, const char *fname);
     ~Player();
-    bool move(const int sx, const int sy, const int x, const int y);
+
+    int move(int sx, int sy, int x, int y);
     int scan(const int x, const int y);
+    void turn();
 };
+
+int API_move(lua_State *L);
 
 #endif
