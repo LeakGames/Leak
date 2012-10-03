@@ -1,12 +1,5 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <boost/thread.hpp>
-
-extern "C" {
-    #include "lua.h"
-    #include "lualib.h"
-    #include "lauxlib.h"
-}
 
 #include "../core/main.h"
 #include "gui.h"
@@ -42,7 +35,7 @@ void Gui::set_color(int x, int y, sf::Color color) {
     this->matrix[x][y].rect->setFillColor(color);
 }
 
-void Gui::display_window() { 
+void Gui::display_window() {
     int x, y;
 
     this->window.create(sf::VideoMode(this->width_window, this->height_window), "Leak");
@@ -78,25 +71,7 @@ void Gui::display_window() {
 
 int main() {
     int w, h, i = 0;
-    lua_State *L = luaL_newstate();
-    vector<sf::Color> v;
-
-    v.push_back(sf::Color::Blue);
-    v.push_back(sf::Color::Red);
-    v.push_back(sf::Color::Green);
-
-    Gui *g = new Gui();
-    boost::thread t1(&Gui::display_window, g);
-    g->create_matrix();
-    g->set_color(1, 1, sf::Color::Green);
-
-    luaL_openlibs(L);
-
-    if (luaL_dofile(L, "lol.lua") != 0) {
-        cout << "ERROR " << (string) lua_tostring(L, -1) << endl;
-    }
-
-    lua_close(L);
+    Grid *g = new Grid(300, 300);
 
     while(1) {}
 

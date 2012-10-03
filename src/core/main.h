@@ -6,6 +6,12 @@
 
 #include "../gui/gui.h"
 
+extern "C" {
+    #include "lua.h"
+    #include "lualib.h"
+    #include "lauxlib.h"
+}
+
 class Grid;
 class Player;
 
@@ -33,10 +39,12 @@ public:
     sf::Color color;
     float exp;
     Grid *grid;
+    lua_State *L;
 
-    Player(Grid *grid);
+    Player(Grid *grid, sf::Color color);
     ~Player();
     bool move(const int sx, const int sy, const int x, const int y);
     int scan(const int x, const int y);
 };
+
 #endif

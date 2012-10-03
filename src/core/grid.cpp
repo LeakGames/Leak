@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
+#include <boost/thread.hpp>
 
 #include "main.h"
 #include "../gui/gui.h"
@@ -11,17 +12,20 @@ using namespace std;
 
 Grid::Grid( const int w, const int h ) {
     vector< vector<Cell> > matrix(w, vector<Cell>(h));
+    int i, j, c;
 
     this->w = w;
     this->h = h;
     this->matrix = matrix;
-    this->gui = new Gui();
-    
-    int i, j, c;
+    this->gui = new Gui(500, 500, 100, 100);
+    this->gui->create_matrix();
+    this->gui->set_color(1, 1, sf::Color::Green);
 
-    for( c = 0; c < ceil( (float)this->n / 2 ); c++ ) {
-        for( i = c; i < this->n - c; i++ ) {
-            for( j = c; j < this->m - c; j++ ) {
+    boost::thread t1(&Gui::display_window, this->gui);
+
+    for( c = 0; c < ceil( (float)this->w / 2 ); c++ ) {
+        for( i = c; i < this->w - c; i++ ) {
+            for( j = c; j < this->h - c; j++ ) {
                 // Assign to matrix[i][j] atk/def bonus dependent by c value.
             }
         }
@@ -88,5 +92,3 @@ void Grid::print_matrix() {
         cout << endl;
     }
 }
-
-int main() {}

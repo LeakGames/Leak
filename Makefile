@@ -1,5 +1,6 @@
 GRIDSOURCE = src/core/grid.cpp
-GUISOURCE = src/gui/gui.cpp
+PLAYERSOURCE = src/core/player.cpp
+GUISOURCE = src/gui/gui.cpp $(GRIDSOURCE) $(PLAYERSOURCE)
 CC = g++
 
 all:
