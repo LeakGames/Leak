@@ -19,7 +19,7 @@ Grid::Grid( const int w, const int h ) {
     
     int i, j, c;
 
-    for( c = 0; c < 10; c++ ) {
+    for( c = 0; c < ceil( (float)this->n / 2 ); c++ ) {
         for( i = c; i < this->n - c; i++ ) {
             for( j = c; j < this->m - c; j++ ) {
                 // Assign to matrix[i][j] atk/def bonus dependent by c value.
