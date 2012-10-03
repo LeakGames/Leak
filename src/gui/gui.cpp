@@ -8,9 +8,7 @@
 using namespace std;
 
 Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 100, const int height_matrix = 100) {
-    cout << "STARTASD" << endl;
     vector<vector<Cell> > matrix(width_matrix, vector<Cell>( height_matrix ));
-    cout << "START" << endl;
     this->width_window = width_window;
     this->height_window = height_window;
     this->width_matrix = width_matrix;
@@ -63,10 +61,11 @@ void Gui::display_window() {
 	for (x = 0; x < this->width_matrix; x++) {
      	for (y = 0; y < this->height_matrix; y++) {
           	this->window.draw(*this->matrix[x][y].rect);
-          }
-     }
-        
-     this->window.display();
+        }
+    }
+  
+    this->window.display();
+
 	}
 }
 
@@ -79,15 +78,10 @@ int main() {
 	v.push_back(sf::Color::Red);
 	v.push_back(sf::Color::Green);
 
-	cout << "START" << endl;
 	Gui *g = new Gui();
-	boost::thread t1(boost::bind(&Gui::display_window, g));
-	cout << "FIRST" << endl;
-	g->create_matrix();
-	cout << "SECOND" << endl;
+	boost::thread t1(&Gui::display_window, g);
+    g->create_matrix();
 	g->set_color(1, 1, sf::Color::Green);
-	cout << "THIRD" << endl;
-	t1.join();
 
 	while(1) {
 		g->set_color( rand()%100, rand()%100, v[ (i++) % 3 ] );
