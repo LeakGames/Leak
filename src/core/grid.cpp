@@ -34,7 +34,7 @@ Cell Grid::operator()(int x, int y) {
 
 bool Grid::set(int x, int y, Player *p) {
     // call GUI methods
-
+    this->gui->set_color(x, y, p->color);
     this->matrix[x][y].player = p;
     return true;
 }

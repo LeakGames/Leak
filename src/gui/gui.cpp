@@ -37,55 +37,55 @@ void Gui::set_color(int x, int y, sf::Color color) {
 }
 
 void Gui::display_window() { 
-	int x, y;
+    int x, y;
 
-	this->window.create(sf::VideoMode(this->width_window, this->height_window), "Leak");
+    this->window.create(sf::VideoMode(this->width_window, this->height_window), "Leak");
     
-	while (window.isOpen()) {
+    while (window.isOpen()) {
      sf::Event event;
-	while (window.pollEvent(event)) {
-     	if (event.type == sf::Event::Closed)
-     		window.close();
+    while (window.pollEvent(event)) {
+          if (event.type == sf::Event::Closed)
+            window.close();
 
           if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F3))
-          	this->set_color(3,3, sf::Color::Blue);
+              this->set_color(3,3, sf::Color::Blue);
 
           if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F2)) {
                sf::Image screen = window.capture();
-          	screen.saveToFile("screenshot.png");
+              screen.saveToFile("screenshot.png");
                cout << "Screenshot saved!" << endl;
           }
 
      }
 
-	for (x = 0; x < this->width_matrix; x++) {
-     	for (y = 0; y < this->height_matrix; y++) {
-          	this->window.draw(*this->matrix[x][y].rect);
+    for (x = 0; x < this->width_matrix; x++) {
+         for (y = 0; y < this->height_matrix; y++) {
+              this->window.draw(*this->matrix[x][y].rect);
         }
     }
   
     this->window.display();
 
-	}
+    }
 }
 
 
 int main() {
-	int w, h, i = 0;
-	vector<sf::Color> v;
+    int w, h, i = 0;
+    vector<sf::Color> v;
 
-	v.push_back(sf::Color::Blue);
-	v.push_back(sf::Color::Red);
-	v.push_back(sf::Color::Green);
+    v.push_back(sf::Color::Blue);
+    v.push_back(sf::Color::Red);
+    v.push_back(sf::Color::Green);
 
-	Gui *g = new Gui();
-	boost::thread t1(&Gui::display_window, g);
+    Gui *g = new Gui();
+    boost::thread t1(&Gui::display_window, g);
     g->create_matrix();
-	g->set_color(1, 1, sf::Color::Green);
+    g->set_color(1, 1, sf::Color::Green);
 
-	while(1) {
-		g->set_color( rand()%100, rand()%100, v[ (i++) % 3 ] );
-	}
+    while(1) {
+        g->set_color( rand()%100, rand()%100, v[ (i++) % 3 ] );
+    }
 
-	return 0;
+    return 0;
 }
