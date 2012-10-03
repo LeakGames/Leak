@@ -2,6 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include <boost/thread.hpp>
 
+extern "C" {
+    #include "lua.h"
+    #include "lualib.h"
+    #include "lauxlib.h"
+}
+
 #include "../core/main.h"
 #include "gui.h"
 
@@ -72,6 +78,7 @@ void Gui::display_window() {
 
 int main() {
     int w, h, i = 0;
+    lua_State *L = luaL_newstate();
     vector<sf::Color> v;
 
     v.push_back(sf::Color::Blue);
@@ -83,9 +90,15 @@ int main() {
     g->create_matrix();
     g->set_color(1, 1, sf::Color::Green);
 
-    while(1) {
-        g->set_color( rand()%100, rand()%100, v[ (i++) % 3 ] );
+    luaL_openlibs(L);
+
+    if (luaL_dofile(L, "lol.lua") != 0) {
+        cout << "ERROR " << (string) lua_tostring(L, -1) << endl;
     }
+
+    lua_close(L);
+
+    while(1) {}
 
     return 0;
 }
