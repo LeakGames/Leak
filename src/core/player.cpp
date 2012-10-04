@@ -109,6 +109,9 @@ int Player::attack(int sx, int sy, int x, int y) {
 
 void Player::turn() {
     lua_getglobal(this->l, "turn");
-    lua_pcall(this->l, 0, 0, 0);
+
+    if (lua_pcall(this->l, 0, 0, 0))
+        cerr << (string) lua_tostring(this->l, -1) << endl;
+    
     this->moved = false;
 }
