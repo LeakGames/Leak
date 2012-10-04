@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <sstream>
 
 #include "../core/main.h"
 #include "gui.h"
@@ -38,6 +39,15 @@ void Gui::set_color(int x, int y, sf::Color color) {
 
 void Gui::display_window() {
     int x, y;
+    sf::Font font;
+    font.loadFromFile("/usr/share/fonts/TTF/arial.ttf");
+
+    stringstream ss(stringstream::in | stringstream::out);
+    sf::Text text("test");
+    char* s = (char*)malloc(0xff);
+    text.setFont(font);
+    text.setCharacterSize(10);
+    text.setColor(sf::Color::Black);
 
     this->window.create(sf::VideoMode(this->width_window, this->height_window), "Leak");
     
@@ -49,6 +59,19 @@ void Gui::display_window() {
 
           if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F3))
               this->set_color(3,3, sf::Color::Blue);
+
+		if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F5)) {
+			for (int cx = 0; cx < this->width_matrix; cx++) {
+				for (int cy = 0; cy < this->height_matrix; cy++) {
+					//sprintf(s, "atk: %d, def: %d", this->matrix[cx][cy].atk, this->matrix[cx][cy].def);
+					//ss << "atk: " << this->matrix[cx][cy].atk << " def: " << this->matrix[cx][cy].def;
+					text.setString( "h" );
+					text.setPosition( cx, cy );
+
+					window.draw(text);
+				}
+			}
+		}
 
           if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F2)) {
                sf::Image screen = window.capture();

@@ -1,4 +1,4 @@
-module(..., package.seeall)
+--[[ module(...) ]]--
 
 function table_print (tt, indent, done)
   done = done or {}
