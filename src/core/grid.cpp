@@ -23,19 +23,20 @@ Grid::Grid( const int w, const int h ) {
     boost::thread t1(&Gui::display_window, this->gui);
 
     for( c = 0; c < ceil( (float)this->w / 2 ); c++ ) {
-        for( i = c; i < this->w - c; i++ ) {
-            for( j = c; j < this->h - c; j++ ) {
-    		    matrix[i][j].atk = ( c <= ceil( ( float )this->w / 2 ) / 2 ) ? c : ( c * c );
-        		matrix[i][j].def = -( ( ceil( ( float )this->w / 2 ) / 4 ) + c / 2 );
-							
-				if( c == ceil( ( float ) this->w/ 2 ) - 1 ) {
-					matrix[i][j].atk = 100;
-					matrix[i][j].def = -10;
-				}
-				matrix[i][j].player = NULL;
-            }
+      for( i = c; i < this->w - c; i++ ) {
+        for( j = c; j < this->h - c; j++ ) {
+          matrix[i][j].atk = ( c <= ceil( ( float )this->w / 2 ) / 2 ) ? c : ( c * c );
+          matrix[i][j].def = -( ( ceil( ( float )this->w / 2 ) / 4 ) + c / 2 );
+
+          if( c == ceil( ( float ) this->w/ 2 ) - 1 ) {
+	    matrix[i][j].atk = 100;
+	    matrix[i][j].def = -10;
+           }
+      
+	   matrix[i][j].player = NULL;
         }
-    }
+      }
+   }
 }
 
 Cell Grid::operator()(int x, int y) {
