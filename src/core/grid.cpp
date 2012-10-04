@@ -47,7 +47,7 @@ Cell Grid::operator()(int x, int y) {
 
 int Grid::set(int x, int y, Player *p) {
     // call GUI methods
-    if (this->matrix[x][y].player && this->matrix[x][y].player->color == p->color)
+    if (this->matrix[x][y].player && this->matrix[x][y].player == p)
         return 0;
 
     this->gui->set_color(x, y, p->color);

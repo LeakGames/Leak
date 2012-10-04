@@ -67,11 +67,19 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
 }
 
 int Player::move(int sx, int sy, int x, int y) {
-    if (this->excluded || this->moved)
+    if 
+    (
+        this->excluded      ||
+        this->moved         ||
+        x < 0               ||
+        x > this->grid->w-1 ||
+        y < 0               ||
+        y > this->grid->h-1
+    )
         return 0;
 
-    if ((abs(y - sy) == 1 || abs(y - sy) == 0) && (abs(x - sx) == 1 || abs(x - sx) == 0)) {
-        if (this->grid->matrix[sy][sx].player->color == this->color)
+    if ((abs(y - sy) == 1 || abs(y - sy) == 0) && (abs(x - sx) == 1 || abs(x - sx) == 0) && this->grid->matrix[x][y].player != this && this->grid->matrix[sx][sy].player == this) {
+        if (!this->grid->matrix[x][y].player)
             this->grid->set(x, y, this);
         else
             this->attack(sx, sy, x, y);
@@ -84,7 +92,11 @@ int Player::move(int sx, int sy, int x, int y) {
 
 int Player::attack(int sx, int sy, int x, int y) {
     Player *attacker = this->grid->matrix[sx][sy].player,
-           *defender = this->grid->matrix[sx][sy].player;
+           *defender = this->grid->matrix[x][y].player;
+
+    cout << "ONATTACK" << endl;
+    cout << defender->def << endl;
+    cout << attacker->atk << endl;
 
     if (attacker->atk + this->grid->matrix[sx][sy].atk > defender->def + this->grid->matrix[x][y].def) {
         this->grid->set(x, y, this);

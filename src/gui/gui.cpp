@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 100, const int height_matrix = 100) {
+Gui::Gui(const int width_window = 500, const int height_window = 500, const int width_matrix = 20, const int height_matrix = 20) {
     vector<vector<Cell> > matrix(width_matrix, vector<Cell>( height_matrix ));
     this->width_window = width_window;
     this->height_window = height_window;
@@ -72,16 +72,18 @@ void Gui::display_window() {
 
 int main() {
     int w, h, i = 0;
-    Grid *g = new Grid(100, 100);
+    Grid *g = new Grid(20, 20);
     vector<Player *> p;
-    sf::Time time = sf::seconds(1);
+    sf::Time time = sf::seconds(0.3f);
 
     p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
     p.push_back(new Player(g, sf::Color::Black, "example.lua"));
 
-    g->set(2, 2, p[0]);
+    g->set(18, 18, p[0]);
+    g->set(3, 3, p[1]);
 
-    cout << 0 + (-1) << endl;
+    p[1]->atk = 4000;
+    p[1]->def = 4000;
 
     while(1) {
         for (vector<Player *>::iterator it=p.begin(); it != p.end(); it++) {
