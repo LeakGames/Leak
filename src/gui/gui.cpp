@@ -74,7 +74,7 @@ int main() {
     int w, h, i = 0;
     Grid *g = new Grid(20, 20);
     vector<Player *> p;
-    sf::Time time = sf::seconds(0.3f);
+    sf::Time time = sf::seconds(0.6f);
 
     p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
     p.push_back(new Player(g, sf::Color::Black, "example.lua"));
@@ -86,10 +86,10 @@ int main() {
     p[1]->def = 4000;
 
     while(1) {
-        for (vector<Player *>::iterator it=p.begin(); it != p.end(); it++) {
-          (*it)->turn();
-          sf::sleep(time);
-        }
+        for (int it = 0; it < p.size(); it++)
+          p[it]->turn();
+
+        sf::sleep(time);
     }
 
     return 0;

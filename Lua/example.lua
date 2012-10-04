@@ -8,7 +8,7 @@ oldy = 2
 function turn()
   x = x + 1
   y = y + 1
-  move(2, 2, 2, 2)
+  move(oldx, oldy, x, y)
   oldx = oldx+1
   oldy = oldy+1
 end
