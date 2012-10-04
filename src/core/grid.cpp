@@ -20,13 +20,15 @@ Grid::Grid( const int w, const int h ) {
     this->gui = new Gui(500, 500, 100, 100);
     this->gui->create_matrix();
     this->gui->set_color(1, 1, sf::Color::Green);
-
+    
     boost::thread t1(&Gui::display_window, this->gui);
 
     for( c = 0; c < ceil( (float)this->w / 2 ); c++ ) {
         for( i = c; i < this->w - c; i++ ) {
             for( j = c; j < this->h - c; j++ ) {
-                // Assign to matrix[i][j] atk/def bonus dependent by c value.
+                // Assign to matrix[i][j] atk/def bonus dependent by c value. NOTE FOR JIINPR0: DO IT DAMMIT
+                matrix[i][j].atk = 3;
+                matrix[i][j].def = -1;
             }
         }
     }
@@ -36,11 +38,17 @@ Cell Grid::operator()(int x, int y) {
     return this->matrix[x][y];
 }
 
-bool Grid::set(int x, int y, Player *p) {
+int Grid::set(int x, int y, Player *p) {
     // call GUI methods
+    if (this->matrix[x][y].player && this->matrix[x][y].player->color == p->color)
+        return 0;
+
     this->gui->set_color(x, y, p->color);
     this->matrix[x][y].player = p;
-    return true;
+    p->atk++;
+    p->def++;
+    
+    return 0;
 }
 
 bool Grid::is_cell_free( const int x, const int y ) {
@@ -54,7 +62,7 @@ void Grid::spawn_player( const int cell_free ) {
     do {
         flag = false;
         rand_seed_n = rand() % this->w;
-        rand_seed_m = rand() % this->w;
+        rand_seed_m = rand() % this->h;
 
         if( ( rand_seed_n > ( this->w - cell_free )) || ( rand_seed_n > ( this->h - cell_free ) ) ) {
             rand_seed_n -= cell_free;

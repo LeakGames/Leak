@@ -16,8 +16,8 @@ typedef struct Cell {
     Player *player;
     int x;
     int y;
-    int atk_bonus;
-    int def_bonus;
+    int atk;
+    int def;
 } Cell;
 
 class Gui {    

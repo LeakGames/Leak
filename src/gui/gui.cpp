@@ -79,8 +79,11 @@ int main() {
     p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
 
     while(1) {
+        //cout << "SET" << endl;
         g->set(2, 2, p[0]);
+        //cout << "TURN" << endl;
         p[0]->turn();
+        //cout << "SLEEP" << endl;
         sf::sleep(time);
     }
 
