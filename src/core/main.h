@@ -20,7 +20,7 @@ using namespace std;
 class Grid {
 public:
     int w, h;
-    vector<vector<Cell> > matrix;
+    vector<vector<Cell>::pointer >::pointer *matrix;
     Gui *gui;
 
     Grid( const int n, const int m );

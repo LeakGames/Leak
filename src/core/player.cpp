@@ -32,12 +32,14 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
     this->atk = 0;
     this->def = 0;
 
-/*    getcwd(temp, sizeof(temp));
+/*
+    getcwd(temp, sizeof(temp));
     string path("LUA_PATH=");
     path.append(temp);
     path.append("\\Lua\\?.lua");
     cout << path << endl;
-    putenv(path.c_str());*/
+    putenv(path.c_str());
+*/
 
     // CLASS, TODO: Make it read-only
     lua_pushlightuserdata(this->l, this);
@@ -75,11 +77,10 @@ int Player::move(int sx, int sy, int x, int y) {
         x > this->grid->w-1 ||
         y < 0               ||
         y > this->grid->h-1
-    )
-        return 0;
+    ) return 0;
 
-    if ((abs(y - sy) == 1 || abs(y - sy) == 0) && (abs(x - sx) == 1 || abs(x - sx) == 0) && this->grid->matrix[x][y].player != this && this->grid->matrix[sx][sy].player == this) {
-        if (!this->grid->matrix[x][y].player)
+    if ((abs(y - sy) == 1 || abs(y - sy) == 0) && (abs(x - sx) == 1 || abs(x - sx) == 0) && this->grid->gui->matrix[x][y].player != this && this->grid->gui->matrix[sx][sy].player == this) {
+        if (!this->grid->gui->matrix[x][y].player)
             this->grid->set(x, y, this);
         else
             this->attack(sx, sy, x, y);
@@ -91,14 +92,14 @@ int Player::move(int sx, int sy, int x, int y) {
 }
 
 int Player::attack(int sx, int sy, int x, int y) {
-    Player *attacker = this->grid->matrix[sx][sy].player,
-           *defender = this->grid->matrix[x][y].player;
+    Player *attacker = this->grid->gui->matrix[sx][sy].player,
+           *defender = this->grid->gui->matrix[x][y].player;
 
     cout << "ONATTACK" << endl;
     cout << defender->def << endl;
     cout << attacker->atk << endl;
 
-    if (attacker->atk + this->grid->matrix[sx][sy].atk > defender->def + this->grid->matrix[x][y].def) {
+    if (attacker->atk + this->grid->gui->matrix[sx][sy].atk > defender->def + this->grid->gui->matrix[x][y].def) {
         this->grid->set(x, y, this);
         defender->atk--;
         defender->def--;

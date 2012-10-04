@@ -37,13 +37,13 @@ int API_getprop(lua_State *L) {
         int x = lua_tonumber(L, 1),
             y = lua_tonumber(L, 2);
 
-        if (curr->grid->matrix[x][y].player)
-            atk = curr->grid->matrix[x][y].player->atk + curr->grid->matrix[x][y].atk;
+        if (curr->grid->gui->matrix[x][y].player)
+            atk = curr->grid->gui->matrix[x][y].player->atk + curr->grid->gui->matrix[x][y].atk;
         else
             atk = 0;
 
-        if (curr->grid->matrix[x][y].player)
-            def = curr->grid->matrix[x][y].player->def + curr->grid->matrix[x][y].def;
+        if (curr->grid->gui->matrix[x][y].player)
+            def = curr->grid->gui->matrix[x][y].player->def + curr->grid->gui->matrix[x][y].def;
         else
             def = 0;
         

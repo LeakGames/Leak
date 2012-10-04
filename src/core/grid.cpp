@@ -17,7 +17,6 @@ Grid::Grid( const int w, const int h ) {
     this->h = h;
     this->gui = new Gui(500, 500, w, h);
     this->gui->create_matrix();
-    this->matrix = gui->matrix;
     this->gui->set_color(1, 1, sf::Color::Green);
 
     boost::thread t1(&Gui::display_window, this->gui);
@@ -25,31 +24,31 @@ Grid::Grid( const int w, const int h ) {
     for( c = 0; c < ceil( (float)this->w / 2 ); c++ ) {
         for( i = c; i < this->w - c; i++ ) {
             for( j = c; j < this->h - c; j++ ) {
-                matrix[i][j].atk = ( c <= ceil( ( float )this->w / 2 ) / 2 ) ? c : ( c * c );
-                matrix[i][j].def = -( ( ceil( ( float )this->w / 2 ) / 4 ) + c / 2 );
+                this->gui->matrix[i][j].atk = ( c <= ceil( ( float )this->w / 2 ) / 2 ) ? c : ( c * c );
+                this->gui->matrix[i][j].def = -( ( ceil( ( float )this->w / 2 ) / 4 ) + c / 2 );
 
                 if( c == ceil( ( float ) this->w/ 2 ) - 1 ) {
-                    matrix[i][j].atk = 100;
-                    matrix[i][j].def = -10;
+                    this->gui->matrix[i][j].atk = 100;
+                    this->gui->matrix[i][j].def = -10;
                 }
 
-                matrix[i][j].player = NULL;
+                this->gui->matrix[i][j].player = NULL;
             }
         }
     }
 }
 
 Cell Grid::operator()(int x, int y) {
-    return this->matrix[x][y];
+    return this->gui->matrix[x][y];
 }
 
 int Grid::set(int x, int y, Player *p) {
     // call GUI methods
-    if (this->matrix[x][y].player && this->matrix[x][y].player == p)
+    if (this->gui->matrix[x][y].player && this->gui->matrix[x][y].player == p)
         return 0;
 
     this->gui->set_color(x, y, p->color);
-    this->matrix[x][y].player = p;
+    this->gui->matrix[x][y].player = p;
     p->atk++;
     p->def++;
     
@@ -57,7 +56,7 @@ int Grid::set(int x, int y, Player *p) {
 }
 
 bool Grid::is_cell_free( const int x, const int y ) {
-    return ( bool ) ( !this->matrix[x][y].player );
+    return ( bool ) ( !this->gui->matrix[x][y].player );
 }
 
 void Grid::spawn_player( const int cell_free ) {
@@ -89,7 +88,7 @@ void Grid::spawn_player( const int cell_free ) {
 
         if( !flag ) {
             int mid = ceil( (float)cell_free / (float)2 );
-            //this->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = (Cell) NULL; // TODO: Spawn Player
+            //this->gui->matrix[ rand_seed_n + mid ][ rand_seed_m + mid ] = (Cell) NULL; // TODO: Spawn Player
         }
 
     } while( flag );
@@ -100,7 +99,7 @@ void Grid::print_matrix() {
 
     for( i = 0; i < this->w; i++ ) {
         for( j = 0; j < this->h; j++ ) {
-            cout << this->matrix[ i ][ j ].player << " ";
+            cout << this->gui->matrix[ i ][ j ].player << " ";
         }
         cout << endl;
     }
