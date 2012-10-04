@@ -77,14 +77,15 @@ int main() {
     sf::Time time = sf::seconds(1);
 
     p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
+    p.push_back(new Player(g, sf::Color::Red, "example.lua"));
+
+    g->set(2, 2, p[0]);
 
     while(1) {
-        //cout << "SET" << endl;
-        g->set(2, 2, p[0]);
-        //cout << "TURN" << endl;
-        p[0]->turn();
-        //cout << "SLEEP" << endl;
-        sf::sleep(time);
+        for (vector<Player *>::iterator it=p.begin(); it != p.end(); it++) {
+          (*it)->turn();
+          sf::sleep(time);
+        }
     }
 
     return 0;
