@@ -22,20 +22,17 @@ Grid::Grid( const int w, const int h ) {
     
     boost::thread t1(&Gui::display_window, this->gui);
 
-    for (int x = 0; x < this->w; x++) {
-        for (int y = 0; y < this->h; y++) {
-            this->matrix[x][y].atk = 3;
-            this->matrix[x][y].def = -1;
-            this->matrix[x][y].player = NULL;
-        }        
-    }
-
     for( c = 0; c < ceil( (float)this->w / 2 ); c++ ) {
         for( i = c; i < this->w - c; i++ ) {
             for( j = c; j < this->h - c; j++ ) {
-                // Assign to matrix[i][j] atk/def bonus dependent by c value. NOTE FOR JIINPR0: DO IT DAMMIT
-                matrix[i][j].atk = 3;
-                matrix[i][j].def = -1;
+    		    matrix[i][j].atk = ( c <= ceil( ( float )this->w / 2 ) / 2 ) ? c : ( c * c );
+        		matrix[i][j].def = -( ( ceil( ( float )this->w / 2 ) / 4 ) + c / 2 );
+							
+				if( c == ceil( ( float ) this->w/ 2 ) - 1 ) {
+					matrix[i][j].atk = 100;
+					matrix[i][j].def = -10;
+				}
+				matrix[i][j].player = NULL;
             }
         }
     }
