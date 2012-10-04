@@ -1,5 +1,6 @@
 #include <cmath>
 #include <boost/bind.hpp>
+#include <iostream>
 
 #include "main.h"
 #include "../gui/gui.h"
@@ -10,19 +11,33 @@ extern "C" {
     #include "lauxlib.h"
 }
 
+using namespace std;
 
 Player::Player(Grid *grid, sf::Color color, const char *fname) {
     int ptr = (int) this;
     this->color = color;
     this->grid = grid;
     this->l = luaL_newstate();
-    luaL_dofile(this->l, fname);
 
+    // CLASS, TODO: Make it read-only
     lua_pushlightuserdata(this->l, this);
     lua_setglobal(this->l, "player");
 
+    // APIs
     lua_pushcfunction(this->l, API_move);
     lua_setglobal(this->l, "move");
+
+    if (luaL_dofile(this->l, fname)) {
+        cerr << (string) lua_tostring(this->l, -1) << endl;
+        return;
+    }
+
+    luaL_openlibs(this->l);
+
+    if (lua_pcall(this->l, 0, LUA_MULTRET, 0)) {
+        cerr << (string) lua_tostring(this->l, -1) << endl;
+        return;
+    }
 }
 
 int Player::move(int sx, int sy, int x, int y) {

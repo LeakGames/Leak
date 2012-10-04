@@ -74,13 +74,14 @@ int main() {
     int w, h, i = 0;
     Grid *g = new Grid(300, 300);
     vector<Player *> p;
+    sf::Time time = sf::seconds(1);
 
     p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
 
     while(1) {
         g->set(2, 2, p[0]);
         p[0]->turn();
-        //sf::Sleep(1);
+        sf::sleep(time);
     }
 
     return 0;
