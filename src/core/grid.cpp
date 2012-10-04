@@ -11,17 +11,24 @@
 using namespace std;
 
 Grid::Grid( const int w, const int h ) {
-    vector< vector<Cell> > matrix(w, vector<Cell>(h));
     int i, j, c;
 
     this->w = w;
     this->h = h;
-    this->matrix = matrix;
-    this->gui = new Gui(500, 500, 100, 100);
+    this->gui = new Gui(500, 500, w, h);
     this->gui->create_matrix();
+    this->matrix = gui->matrix;
     this->gui->set_color(1, 1, sf::Color::Green);
     
     boost::thread t1(&Gui::display_window, this->gui);
+
+    for (int x = 0; x < this->w; x++) {
+        for (int y = 0; y < this->h; y++) {
+            this->matrix[x][y].atk = 3;
+            this->matrix[x][y].def = -1;
+            this->matrix[x][y].player = NULL;
+        }        
+    }
 
     for( c = 0; c < ceil( (float)this->w / 2 ); c++ ) {
         for( i = c; i < this->w - c; i++ ) {

@@ -54,5 +54,6 @@ public:
 // APIs
 int API_move(lua_State *L);
 int API_getprop(lua_State *L);
+int API_getgridprops(lua_State *L);
 
 #endif

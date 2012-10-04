@@ -1,6 +1,16 @@
 #include <cmath>
+#include <cstdlib>
 #include <boost/bind.hpp>
 #include <iostream>
+#include <string>
+
+#ifdef WINDOWS
+    #include <direct.h>
+    #define GetCurrentDir _getcwd
+#else
+    #include <unistd.h>
+    #define GetCurrentDir getcwd
+ #endif
 
 #include "main.h"
 #include "../gui/gui.h"
@@ -14,13 +24,20 @@ extern "C" {
 using namespace std;
 
 Player::Player(Grid *grid, sf::Color color, const char *fname) {
-    int ptr = (int) this;
+//    char temp[260];
     this->color = color;
     this->grid = grid;
     this->excluded = false;
     this->l = luaL_newstate();
     this->atk = 0;
     this->def = 0;
+
+/*    getcwd(temp, sizeof(temp));
+    string path("LUA_PATH=");
+    path.append(temp);
+    path.append("\\Lua\\?.lua");
+    cout << path << endl;
+    putenv(path.c_str());*/
 
     // CLASS, TODO: Make it read-only
     lua_pushlightuserdata(this->l, this);
@@ -29,15 +46,19 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
     // APIs
     lua_pushcfunction(this->l, API_move);
     lua_setglobal(this->l, "move");
+
     lua_pushcfunction(this->l, API_getprop);
     lua_setglobal(this->l, "getprop");
+
+    lua_pushcfunction(this->l, API_getgridprops);
+    lua_setglobal(this->l, "getgridprops");
+
+    luaL_openlibs(this->l);
 
     if (luaL_dofile(this->l, fname)) {
         cerr << (string) lua_tostring(this->l, -1) << endl;
         return;
     }
-
-    luaL_openlibs(this->l);
 
     if (lua_pcall(this->l, 0, LUA_MULTRET, 0)) {
         cerr << (string) lua_tostring(this->l, -1) << endl;

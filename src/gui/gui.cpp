@@ -72,14 +72,16 @@ void Gui::display_window() {
 
 int main() {
     int w, h, i = 0;
-    Grid *g = new Grid(300, 300);
+    Grid *g = new Grid(100, 100);
     vector<Player *> p;
     sf::Time time = sf::seconds(1);
 
     p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
-    p.push_back(new Player(g, sf::Color::Red, "example.lua"));
+    p.push_back(new Player(g, sf::Color::Black, "example.lua"));
 
     g->set(2, 2, p[0]);
+
+    cout << 0 + (-1) << endl;
 
     while(1) {
         for (vector<Player *>::iterator it=p.begin(); it != p.end(); it++) {
