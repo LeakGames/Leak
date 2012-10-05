@@ -32,3 +32,12 @@ string *color_to_string(sf::Color color) {
     for (int n = 0; n < 8; n++)
         if (colors[n] == color) return &(names[n]);
 }
+
+int index_of<class T>(T needle, vector<T> haystack) {
+    for (int n = 0; n < haystack.length(); n++) {
+        if (haystack[n] == needle)
+            return n;
+    }
+
+    return -1;
+}

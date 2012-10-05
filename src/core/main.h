@@ -15,11 +15,21 @@ extern "C" {
 
 class Grid;
 class Player;
+class Bonus;
 
 using namespace std;
 
 extern sf::Color colors[8];
 extern string names[8];
+
+enum Bonuses {
+    BONUS_VELOCITY = -1,
+    BONUS_TELEPORT,
+    BONUS_INVULNERABILITY,
+    BONUS_ATK,
+    BONUS_EXCHANGE,
+    BONUS_BLACKSTAR
+};
 
 class Grid {
 public:
@@ -27,6 +37,7 @@ public:
     Gui *gui;
 
     Grid( const int n, const int m );
+
     Cell operator()( const int x, const int y);
     bool is_cell_free( const int x, const int y );
     void spawn_bonuses();
@@ -37,13 +48,14 @@ public:
 
 class Player {
 public:
-    vector<int> bonuses;
     int starting_x, starting_y, kills, deaths, atk, def;
     sf::Color color;
     float exp;
     Grid *grid;
+    Bonus *bonus;
     lua_State *l;
     bool excluded, moved;
+
 
     Player(Grid *grid, sf::Color color, const char *fname);
     ~Player();
@@ -54,6 +66,23 @@ public:
     void turn();
 };
 
+class Bonus {
+public:
+    Player *player;
+    vector<int> active_bonuses;
+    vector<int> bonuses;
+    vector<int> actived_turns(6, 0);
+
+    Bonus(Player *p);
+
+    void on_move(int sx, int sy, int x, int y);
+    void on_attack(int sx, int sy, int x, int y);
+    voud on_end_turn();
+    void activate_bonus(int bonus, int x, int y);
+    void delete_bonus(int bonus);
+    bool is_actived(int bonus);
+};
+
 // APIs
 int API_move(lua_State *L);
 int API_getprop(lua_State *L);
@@ -61,5 +90,6 @@ int API_getgridprops(lua_State *L);
 
 // helpers
 string *color_to_string(sf::Color color);
+int index_of<class T>(T needle, vector<T> haystack);
 
 #endif

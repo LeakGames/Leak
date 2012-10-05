@@ -13,6 +13,7 @@ using namespace std;
 
 typedef struct Cell {
     sf::RectangleShape *rect;
+    int bonus;
     Player *player;
     int x;
     int y;

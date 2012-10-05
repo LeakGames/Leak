@@ -33,6 +33,7 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
     this->l = luaL_newstate();
     this->atk = 0;
     this->def = 0;
+    this->bonus = new Bonus(this);
 
 /*
     getcwd(temp, sizeof(temp));
