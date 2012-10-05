@@ -51,7 +51,6 @@ public:
     int move(int sx, int sy, int x, int y);
     int attack(int sx, int sy, int x, int y);
     int scan(const int x, const int y);
-    int scan(const int sx, const int sy, const int ex, const int ey); // For range-scan
     void turn();
 };
 
