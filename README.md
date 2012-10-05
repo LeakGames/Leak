@@ -1,4 +1,8 @@
 Leak
 ====
+Use your brain to win this fucking game.
 
-C++ IS SHIT.
+Stoke says: C++ IS SHIT.
+Jiin says: C++ IS SHIT.
+Nex says: C++ IS SHIT.
+DoMinO says: aoshdoidjhasodiashd.
