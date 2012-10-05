@@ -1,4 +1,4 @@
---[[ module(...) ]]--
+module(...) 
 
 function table_print (tt, indent, done)
   done = done or {}
@@ -34,8 +34,10 @@ function getmatrix()
     matrix[x] = {}
     for y=0,props[1]-1 do
       matrix[x][y] = {}
-      matrix[x][y]["atk"] = getprop(x, y)[0]
-      matrix[x][y]["def"] = getprop(x, y)[1]
+      -- io.write(getprop(x, y)["atk"])
+      matrix[x][y]["atk"] = getprop(x, y)["atk"]
+      matrix[x][y]["def"] = getprop(x, y)["def"]
+      matrix[x][y]["color"] = getprop(x, y)["color"]
     end
   end
 

@@ -4,6 +4,8 @@
 #include <ctime>
 #include <cmath>
 #include <boost/thread.hpp>
+#include <string>
+#include <map>
 
 #include "main.h"
 #include "../gui/gui.h"

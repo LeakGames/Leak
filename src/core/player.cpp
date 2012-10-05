@@ -1,9 +1,10 @@
 #include <cmath>
 #include <cstdlib>
-#include <boost/bind.hpp>
+#include <boost/algorithm/string.hpp>
 #include <iostream>
 #include <string>
 
+/*
 #ifdef WINDOWS
     #include <direct.h>
     #define GetCurrentDir _getcwd
@@ -11,6 +12,7 @@
     #include <unistd.h>
     #define GetCurrentDir getcwd
  #endif
+*/
 
 #include "main.h"
 #include "../gui/gui.h"
@@ -44,6 +46,12 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
     // CLASS, TODO: Make it read-only
     lua_pushlightuserdata(this->l, this);
     lua_setglobal(this->l, "player");
+
+    // CONSTANTS
+    for (int i = 0; i < 8; i++) {
+        lua_pushstring(this->l, names[i].c_str());
+        lua_setglobal(this->l, boost::to_upper_copy(names[i]).c_str());
+    }
 
     // APIs
     lua_pushcfunction(this->l, API_move);

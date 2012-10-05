@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 #include "../gui/gui.h"
 
@@ -17,10 +18,12 @@ class Player;
 
 using namespace std;
 
+extern sf::Color colors[8];
+extern string names[8];
+
 class Grid {
 public:
     int w, h;
-    vector<vector<Cell>::pointer >::pointer *matrix;
     Gui *gui;
 
     Grid( const int n, const int m );
@@ -56,5 +59,8 @@ public:
 int API_move(lua_State *L);
 int API_getprop(lua_State *L);
 int API_getgridprops(lua_State *L);
+
+// helpers
+string *color_to_string(sf::Color color);
 
 #endif

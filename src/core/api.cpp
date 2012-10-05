@@ -29,6 +29,7 @@ int API_move(lua_State *L) {
 
 int API_getprop(lua_State *L) {
     int atk, def;
+    string *color;
 
     lua_getglobal(L, "player");
     Player *curr = (Player *) lua_topointer(L, -1);
@@ -46,6 +47,10 @@ int API_getprop(lua_State *L) {
             def = curr->grid->gui->matrix[x][y].player->def + curr->grid->gui->matrix[x][y].def;
         else
             def = 0;
+        if (curr->grid->gui->matrix[x][y].player)
+            color = color_to_string(curr->grid->gui->matrix[x][y].player->color);
+        else
+            color = color_to_string(sf::Color::White);
         
     } else {
         atk = curr->atk;
@@ -55,14 +60,19 @@ int API_getprop(lua_State *L) {
     // Creating array [atk, def]
     lua_newtable(L);
     
-    // t[0] = atk
-    lua_pushnumber(L, 0);
+    // t[atk] = atk
+    lua_pushstring(L, "atk");
     lua_pushnumber(L, atk);
     lua_settable(L, -3);
     
-    // t[1] = def
-    lua_pushnumber(L, 1);
+    // t[def] = def
+    lua_pushstring(L, "def");
     lua_pushnumber(L, def);
+    lua_settable(L, -3);
+
+    // t[color] = 
+    lua_pushstring(L, "color");
+    lua_pushstring(L, color->c_str());
     lua_settable(L, -3);
 
     return 1;
