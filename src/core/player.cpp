@@ -53,6 +53,9 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
         lua_setglobal(this->l, boost::to_upper_copy(names[i]).c_str());
     }
 
+    lua_pushstring(this->l, color_to_string(this->color)->c_str());
+    lua_setglobal(this->l, "COLOR");
+
     // APIs
     lua_pushcfunction(this->l, API_move);
     lua_setglobal(this->l, "move");
