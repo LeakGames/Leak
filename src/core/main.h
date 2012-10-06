@@ -71,15 +71,15 @@ public:
     Player *player;
     vector<int> active_bonuses;
     vector<int> bonuses;
-    vector<int> actived_turns(6, 0);
+    vector<int> actived_turns;
 
     Bonus(Player *p);
 
     void on_move(int sx, int sy, int x, int y);
     void on_attack(int sx, int sy, int x, int y);
-    voud on_end_turn();
+    void on_end_turn();
     void activate_bonus(int bonus, int x, int y);
-    void delete_bonus(int bonus);
+    void deactivate(int bonus);
     bool is_actived(int bonus);
 };
 
@@ -90,6 +90,15 @@ int API_getgridprops(lua_State *L);
 
 // helpers
 string *color_to_string(sf::Color color);
-int index_of<class T>(T needle, vector<T> haystack);
+
+template <class T>
+int index_of(T needle, vector<T> haystack) { // This should be in helpers.cpp, but C++ is so shitty you can't declare a prototype of a templated function. Hate.
+    for (int n = 0; n < haystack.size(); n++) {
+        if (haystack[n] == needle)
+            return n;
+    }
+
+    return -1;
+}
 
 #endif

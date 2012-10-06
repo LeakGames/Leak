@@ -2,7 +2,8 @@ GRIDSOURCE = src/core/grid.cpp
 PLAYERSOURCE = src/core/player.cpp
 APISOURCE = src/core/api.cpp
 HELPERSOURCE = src/core/helpers.cpp
-GUISOURCE = $(APISOURCE) src/gui/gui.cpp $(GRIDSOURCE) $(PLAYERSOURCE) $(HELPERSOURCE)
+BONUSSOURCE = src/core/bonus.cpp
+GUISOURCE = $(APISOURCE) src/gui/gui.cpp $(GRIDSOURCE) $(PLAYERSOURCE) $(HELPERSOURCE) $(BONUSSOURCE)
 CC = g++
 
 all:

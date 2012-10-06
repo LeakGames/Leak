@@ -98,6 +98,7 @@ int Player::move(int sx, int sy, int x, int y) {
             this->attack(sx, sy, x, y);
     }
 
+    this->bonus->on_move(sx, sy, x, y);
     this->moved = true;
 
     return 0;
@@ -126,5 +127,6 @@ void Player::turn() {
     if (lua_pcall(this->l, 0, 0, 0))
         cerr << (string) lua_tostring(this->l, -1) << endl;
     
+    this->bonus->on_end_turn();
     this->moved = false;
 }
