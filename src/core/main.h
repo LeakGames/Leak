@@ -21,6 +21,7 @@ using namespace std;
 
 extern sf::Color colors[8];
 extern string names[8];
+extern string bonus_names[6];
 
 enum Bonuses {
     BONUS_VELOCITY = -1,
@@ -79,6 +80,7 @@ public:
     void on_attack(int sx, int sy, int x, int y);
     void on_end_turn();
     void activate_bonus(int bonus, int x, int y);
+    void add_bonus(int bonus);
     void deactivate(int bonus);
     bool is_actived(int bonus);
 };
@@ -90,9 +92,10 @@ int API_getgridprops(lua_State *L);
 
 // helpers
 string *color_to_string(sf::Color color);
+bool in_range(int sx, int sy, int x, int y, int range);
 
 template <class T>
-int index_of(T needle, vector<T> haystack) { // This should be in helpers.cpp, but C++ is so shitty you can't declare a prototype of a templated function. Hate.
+int index_of(T needle, vector<T> haystack) { // This should be in helpers.cpp, but C++ is so shitty that you can't declare a prototype of a templated function. Hate.
     for (int n = 0; n < haystack.size(); n++) {
         if (haystack[n] == needle)
             return n;

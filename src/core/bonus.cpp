@@ -13,13 +13,24 @@ Bonus::Bonus(Player *p) {
 
 }
 
+void Bonus::add_bonus(int bonus) {
+    this->bonuses.push_back(bonus);
+}
+
 void Bonus::activate_bonus(int bonus, int x, int y) {
     int idx = index_of<int>(bonus, this->bonuses);
 
     if (idx < 0 || index_of<int>(bonus, this->active_bonuses) != -1)
       return;
 
-    this->active_bonuses.push_back(bonus);
+    if (bonus == BONUS_EXCHANGE) {
+        this->player->grid->gui->matrix[x][y].atk ^= this->player->grid->gui->matrix[x][y].def;
+        this->player->grid->gui->matrix[x][y].def ^= this->player->grid->gui->matrix[x][y].atk;
+        this->player->grid->gui->matrix[x][y].atk ^= this->player->grid->gui->matrix[x][y].def;
+    } else {
+        this->active_bonuses.push_back(bonus);
+    }
+
     this->bonuses.erase(this->bonuses.begin() + idx);
 }
 

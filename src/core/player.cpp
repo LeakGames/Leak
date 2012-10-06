@@ -54,6 +54,11 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
         lua_setglobal(this->l, boost::to_upper_copy(names[i]).c_str());
     }
 
+    for (int x = 0; x < 6; x++) {
+        lua_pushnumber(this->l, -x);
+        lua_setglobal(this->l, boost::to_upper_copy(bonus_names[x]).c_str());
+    }
+
     lua_pushstring(this->l, color_to_string(this->color)->c_str());
     lua_setglobal(this->l, "COLOR");
 
@@ -81,7 +86,9 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
 }
 
 int Player::move(int sx, int sy, int x, int y) {
-    if 
+    int range = 1;
+
+    if
     (
         this->excluded      ||
         this->moved         ||
@@ -91,10 +98,20 @@ int Player::move(int sx, int sy, int x, int y) {
         y > this->grid->h-1
     ) return 0;
 
-    if ((abs(y - sy) == 1 || abs(y - sy) == 0) && (abs(x - sx) == 1 || abs(x - sx) == 0) && this->grid->gui->matrix[x][y].player != this && this->grid->gui->matrix[sx][sy].player == this) {
-        if (!this->grid->gui->matrix[x][y].player)
+    if (this->bonus->is_actived(BONUS_VELOCITY))
+        range = 2;
+
+    if ((in_range(sx, sy, x, y, range) || this->bonus->is_actived(BONUS_TELEPORT)) && this->grid->gui->matrix[x][y].player != this && this->grid->gui->matrix[sx][sy].player == this) {
+        if (!this->grid->gui->matrix[x][y].player) {
             this->grid->set(x, y, this);
-        else
+            
+            if (this->grid->gui->matrix[x][y].bonus < 0)
+                this->bonus->add_bonus(this->grid->gui->matrix[x][y].bonus);
+
+            if (!in_range(sx, sy, x, y, range))
+                this->bonus->deactivate(BONUS_TELEPORT);
+
+        } else if (!this->bonus->is_actived(BONUS_TELEPORT))
             this->attack(sx, sy, x, y);
     }
 
@@ -112,8 +129,14 @@ int Player::attack(int sx, int sy, int x, int y) {
     cout << defender->def << endl;
     cout << attacker->atk << endl;
 
-    if (attacker->atk + this->grid->gui->matrix[sx][sy].atk > defender->def + this->grid->gui->matrix[x][y].def) {
+    if (attacker->atk + this->grid->gui->matrix[sx][sy].atk > defender->def + this->grid->gui->matrix[x][y].def && !defender->bonus->is_actived(BONUS_INVULNERABILITY)) {
         this->grid->set(x, y, this);
+
+        if (this->grid->gui->matrix[x][y].bonus < 0) {
+            attacker->bonus->add_bonus(this->grid->gui->matrix[x][y].bonus);
+            defender->bonus->deactivate(this->grid->gui->matrix[x][y].bonus);
+        }
+        
         defender->atk--;
         defender->def--;
     }

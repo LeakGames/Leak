@@ -28,8 +28,20 @@ string names[] = {
     "cyan"
 };
 
+string bonus_names[6] = {
+    "velocity",
+    "teleport",
+    "invulnerability",
+    "atk",
+    "exchange",
+    "blackstar"
+};
+
 string *color_to_string(sf::Color color) {
     for (int n = 0; n < 8; n++)
         if (colors[n] == color) return &(names[n]);
 }
 
+bool in_range(int sx, int sy, int x, int y, int range) {
+    return (bool) (abs(y - sy) >= 0 && abs(y - sy) <= range) && (abs(x - sx) >= 0 || abs(x - sx) <= range);
+}
