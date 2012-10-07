@@ -41,7 +41,7 @@ Grid::Grid( const int w, const int h ) {
     }
 
     this->gui->matrix[3][3].bonus = BONUS_EXCHANGE;
-    this->gui->matrix[2][2].bonus = BONUS_TELEPORT;
+    this->gui->matrix[2][2].bonus = BONUS_VELOCITY;
 }
 
 Cell Grid::operator()(int x, int y) {

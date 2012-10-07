@@ -13,7 +13,6 @@ Bonus::Bonus(Player *p) {
 
     for (int n = 0; n < 6; n++)
         this->actived_turns.push_back(0);
-
 }
 
 void Bonus::add_bonus(int bonus) {
@@ -23,18 +22,14 @@ void Bonus::add_bonus(int bonus) {
 void Bonus::activate_bonus(int bonus, int x, int y) {
     int idx = index_of<int>(bonus, this->bonuses), def;
 
-    if (idx < 0 || index_of<int>(bonus, this->active_bonuses) != -1)
+    if (idx < 0 || index_of<int>(bonus, this->active_bonuses) != -1 || x > this->player->grid->w-1 || x < 0 || y > this->player->grid->h-1 || y < 0)
       return;
 
     switch (bonus) {
         case BONUS_EXCHANGE:
-            cout << "BEFORE" << endl;
             def = this->player->grid->gui->matrix[x][y].def;
-            cout << "BEFORE1" << endl;
             this->player->grid->gui->matrix[x][y].def = this->player->grid->gui->matrix[x][y].atk;
-            cout << "BEFORE2" << endl;
             this->player->grid->gui->matrix[x][y].atk = def;
-            cout << "AFTER" << endl;
             break;
 
         case BONUS_TELEPORT:
