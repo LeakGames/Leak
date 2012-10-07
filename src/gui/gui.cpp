@@ -59,7 +59,7 @@ void Gui::display_window() {
 			x = (event.mouseButton.x / w);
 			y = (event.mouseButton.y / h);
 
-			cout << "X: " << x << " Y: " << y << "\nATK: " << this->matrix[x][y].atk << "\nDEF: " <<  this->matrix[x][y].def << endl;
+			cout << "X: " << x << " Y: " << y << "\nATK: " << this->matrix[x][y].atk << "\nDEF: " <<  this->matrix[x][y].def << "\nBONUS: " << this->matrix[x][y].bonus << endl;
 		}
 
           if ((event.type == sf::Event::KeyPressed) && (event.key.code == sf::Keyboard::F2)) {
@@ -88,14 +88,14 @@ int main() {
     vector<Player *> p;
     sf::Time time = sf::seconds(0.6f);
 
-    p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
+    //p.push_back(new Player(g, sf::Color::Red, "lol.lua"));
     p.push_back(new Player(g, sf::Color::Black, "example.lua"));
 
-    g->set(18, 18, p[0]);
-    g->set(3, 3, p[1]);
+    //g->set(18, 18, p[0]);
+    g->set(4, 4, p[0]);
 
-    p[1]->atk = 4000;
-    p[1]->def = 4000;
+    p[0]->atk = 4000;
+    p[0]->def = 4000;
 
     while(1) {
         for (int it = 0; it < p.size(); it++)

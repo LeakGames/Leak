@@ -54,9 +54,9 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
         lua_setglobal(this->l, boost::to_upper_copy(names[i]).c_str());
     }
 
-    for (int x = 0; x < 6; x++) {
+    for (int x = 1; x <= 6; x++) {
         lua_pushnumber(this->l, -x);
-        lua_setglobal(this->l, boost::to_upper_copy(bonus_names[x]).c_str());
+        lua_setglobal(this->l, boost::to_upper_copy(bonus_names[x-1]).c_str());
     }
 
     lua_pushstring(this->l, color_to_string(this->color)->c_str());
@@ -71,6 +71,15 @@ Player::Player(Grid *grid, sf::Color color, const char *fname) {
 
     lua_pushcfunction(this->l, API_getgridprops);
     lua_setglobal(this->l, "getgridprops");
+
+    lua_pushcfunction(this->l, API_getbonuses);
+    lua_setglobal(this->l, "getbonuses");
+
+    lua_pushcfunction(this->l, API_getactivebonuses);
+    lua_setglobal(this->l, "getactivebonuses");
+
+    lua_pushcfunction(this->l, API_activatebonus);
+    lua_setglobal(this->l, "activatebonus");
 
     luaL_openlibs(this->l);
 
@@ -136,7 +145,7 @@ int Player::attack(int sx, int sy, int x, int y) {
             attacker->bonus->add_bonus(this->grid->gui->matrix[x][y].bonus);
             defender->bonus->deactivate(this->grid->gui->matrix[x][y].bonus);
         }
-        
+
         defender->atk--;
         defender->def--;
     }

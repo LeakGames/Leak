@@ -1,9 +1,12 @@
+#include <iostream>
 #include <cmath>
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
 
 #include "main.h"
+
+using namespace std;
 
 Bonus::Bonus(Player *p) {
     this->player = p;
@@ -18,17 +21,29 @@ void Bonus::add_bonus(int bonus) {
 }
 
 void Bonus::activate_bonus(int bonus, int x, int y) {
-    int idx = index_of<int>(bonus, this->bonuses);
+    int idx = index_of<int>(bonus, this->bonuses), def;
 
     if (idx < 0 || index_of<int>(bonus, this->active_bonuses) != -1)
       return;
 
-    if (bonus == BONUS_EXCHANGE) {
-        this->player->grid->gui->matrix[x][y].atk ^= this->player->grid->gui->matrix[x][y].def;
-        this->player->grid->gui->matrix[x][y].def ^= this->player->grid->gui->matrix[x][y].atk;
-        this->player->grid->gui->matrix[x][y].atk ^= this->player->grid->gui->matrix[x][y].def;
-    } else {
-        this->active_bonuses.push_back(bonus);
+    switch (bonus) {
+        case BONUS_EXCHANGE:
+            cout << "BEFORE" << endl;
+            def = this->player->grid->gui->matrix[x][y].def;
+            cout << "BEFORE1" << endl;
+            this->player->grid->gui->matrix[x][y].def = this->player->grid->gui->matrix[x][y].atk;
+            cout << "BEFORE2" << endl;
+            this->player->grid->gui->matrix[x][y].atk = def;
+            cout << "AFTER" << endl;
+            break;
+
+        case BONUS_TELEPORT:
+            this->player->grid->set(x, y, this->player);
+            break;
+
+        default:
+            this->active_bonuses.push_back(bonus);
+            break;
     }
 
     this->bonuses.erase(this->bonuses.begin() + idx);

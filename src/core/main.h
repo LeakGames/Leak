@@ -25,11 +25,11 @@ extern string bonus_names[6];
 
 enum Bonuses {
     BONUS_VELOCITY = -1,
-    BONUS_TELEPORT,
-    BONUS_INVULNERABILITY,
-    BONUS_ATK,
-    BONUS_EXCHANGE,
-    BONUS_BLACKSTAR
+    BONUS_TELEPORT = -2,
+    BONUS_INVULNERABILITY = -3,
+    BONUS_ATK = -4,
+    BONUS_EXCHANGE = -5,
+    BONUS_BLACKSTAR = -6
 };
 
 class Grid {
@@ -89,6 +89,9 @@ public:
 int API_move(lua_State *L);
 int API_getprop(lua_State *L);
 int API_getgridprops(lua_State *L);
+int API_getactivebonuses(lua_State *L);
+int API_getbonuses(lua_State *L);
+int API_activatebonus(lua_State *L);
 
 // helpers
 string *color_to_string(sf::Color color);
