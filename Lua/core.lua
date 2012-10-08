@@ -33,11 +33,8 @@ function getmatrix()
   for x=0,props[0]-1 do
     matrix[x] = {}
     for y=0,props[1]-1 do
-      matrix[x][y] = {}
       -- io.write(getprop(x, y)["atk"])
-      matrix[x][y]["atk"] = getprop(x, y)["atk"]
-      matrix[x][y]["def"] = getprop(x, y)["def"]
-      matrix[x][y]["color"] = getprop(x, y)["color"]
+      matrix[x][y] = getprop(x, y)
     end
   end
 
